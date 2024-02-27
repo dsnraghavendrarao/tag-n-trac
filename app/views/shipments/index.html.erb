@@ -1,0 +1,54 @@
+<%# <p style="color: green"><%#= notice %></p>
+
+<%# <h1>Shipments</h1> %>
+
+<%# <div id="shipments"> %>
+  <%# @shipments.each do |shipment| %>
+    <%#= render shipment %>
+    <%# <p> %>
+      <%#= link_to "Show this shipment", shipment %>
+    <%# </p> %>
+  <%# end %>
+<%# </div> %>
+
+<%#= link_to "New shipment", new_shipment_path %>
+
+
+
+<%= render "nav" %>
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col-lg-12">
+            <div class="show-results mt-5">
+                <div class="float-left">
+                    <h5 class="text-dark mb-0 pt-2">Showing  Results : 1-6 of 540 <%= link_to("+ Shipment", new_shipment_path, class: "btn btn-danger btn-block") if current_user.present? && (current_user.role == User::ADMIN || current_user.role == User::CUSTOMER) %></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <%= render "filter" %>
+        <div class="col-lg-9">
+            <div class="candidates-listing-item">
+                <% @shipments.each do |shipment| %>
+                    <%= render "shipment", shipment: shipment if current_user.partner? %>
+                    <%= render "shipment_admin", shipment: shipment if current_user.admin? %>
+                    <%= render "shipment_customer", shipment: shipment if current_user.customer? %> 
+                <% end %>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination job-pagination justify-content-center mt-5 mb-5">
+                    <%= paginate @shipments %>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>  
+
+

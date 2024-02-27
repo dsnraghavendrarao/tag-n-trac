@@ -1,0 +1,67 @@
+<%# <div id="<%#= dom_id shipment %>
+  <%# <p> %>
+    <%# <strong>User:</strong> %>
+    <%#= shipment.user_id %>
+  <%# </p> %>
+
+  <%# <p> %>
+    <%# <strong>Partner:</strong> %>
+    <%#= shipment.partner_id %>
+  <%# </p> %>
+
+  <%# <p> %>
+    <%# <strong>Status:</strong> %>
+    <%#= shipment.status %>
+  <%# </p> %>
+
+<%# </div> %>
+
+
+<div class="list-grid-item mt-4 p-2" id="<%= dom_id shipment %>" >
+  <div class="row">
+      <div class="col-md-9">
+          <%# <div class="candidates-img float-left mr-4">
+              <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="img-fluid d-block rounded">
+          </div> %>
+          <div class="candidates-list-desc job-single-meta  pt-2">
+              <h5 class="mb-2 f-19"><a href="#" class="text-dark"><%= shipment.name%></a></h5>
+              <ul class="list-inline mb-0">
+                  <li class="list-inline-item mr-4">
+                      <p class="text-muted f-15 mb-0"><i class="mdi mdi-account mr-1"></i>Delivery</p>
+                  </li>
+
+                  <li class="list-inline-item mr-4">
+                      <p class="f-15 mb-0"><a href="" class="text-muted"><i class="mdi mdi-map-marker mr-1"></i><%= shipment.from_address.city%></a></p>
+                  </li>
+
+                  <li class="list-inline-item">
+                      <p class="text-muted f-15 mb-0"><i class="mdi mdi-currency-usd mr-1"></i><%= shipment.to_address.city%></p>
+                  </li>
+              </ul>
+              <p class="text-muted mt-1 mb-0">Tracking# : <%= shipment.tracking_id%></p>
+          </div>
+      </div>
+
+      <div class="col-md-3">
+          <div class="candidates-list-fav-btn text-right">
+              <div class="fav-icon">
+                  <i class="mdi mdi-heart f-20"></i>
+              </div>
+              <div class="candidates-listing-btn mt-4">
+                  <%# <a href="#" class="btn btn-outline btn-sm">Update Shipment</a> %>
+                  <%= link_to "Update Shipment", edit_shipment_path(shipment), class: "btn btn-outline btn-sm"%>
+
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="row">
+      <div class="col-lg-11 offset-lg-1">
+          <div class="candidates-item-desc">
+              <hr>
+              <p class="text-muted mb-2 f-14"><%= shipment.description %></p>
+          </div>
+      </div>
+  </div>
+</div>

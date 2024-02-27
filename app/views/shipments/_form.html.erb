@@ -1,0 +1,177 @@
+<div class="form-1-container section-container">
+  <div class="container">
+    <div class="row">
+      <div class="col form-1 section-description wow fadeIn">
+        <div class="divider-1 wow fadeInUp"><span></span></div>
+        <% if shipment.errors.any? %>
+          <div style="color: red">
+            <h2><%= pluralize(shipment.errors.count, "error") %> prohibited this shipment from being saved:</h2>
+            <ul>
+              <% shipment.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <%# <p>A form with 2 "fieldset"-s and 2 "legend"-s: "User's credentials" and "User's preferences".</p> %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-10 offset-md-1 form-1-box wow fadeInUp">
+        <%= form_with(model: shipment, class: 'row g-3') do |form| %>
+          <fieldset class="form-group border p-3">
+            <legend class="w-auto px-2">New Shipment Details:</legend>
+            <div class="form-group">
+              <label for="username">Item Name:</label>
+              <%= form.text_field :name, class: "form-control", id: "inputEmail4", placeholder:"Item Name" %>
+            </div>
+            <div class="form-group">
+              <label for="email">Item Description:</label>
+              <%= form.text_field :description, class: "form-control", id: "inputEmail4", placeholder: "Item Description" %>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Transport Partner:</label>
+              <%= form.select :partner_id, User.where(role: "Partner").collect{|p| [p.full_name, p.id]}, { include_blank: true }, class: "form-control" %>
+            </div>
+          </fieldset>
+          <!-- User's Preferences  -->
+          <div class="row">
+            <%= form.fields_for :addresses do |ff| %>
+              <div class="col-md-6">
+                <fieldset class="form-group border p-3">
+                  <legend class="w-auto px-2"><%= ff.object.source %> Address</legend>
+                  <div class="form-group">
+                    <label for="inputAddress" class="form-label">Name</label>
+                    <%= ff.hidden_field :source %>
+                    <%= ff.text_field :name, class: 'form-control', id: 'inputAddress', placeholder: 'Name' %>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputAddress" class="form-label">Phone</label>
+                    <%= ff.text_field :phone, class: 'form-control', id: 'inputAddress', placeholder: 'phone' %>
+                  </div>  
+                  <div class="form-group">
+                    <label for="inputAddress" class="form-label">Address Line</label>
+                    <%= ff.text_field :address, class: 'form-control', id: 'inputAddress', placeholder: 'Apartment, studio, or floor' %>
+                  </div> 
+                  <div class="form-group">
+                    <label for="inputAddress" class="form-label">LandMark</label>
+                    <%= ff.text_field :land_mark, class: 'form-control', id: 'inputLandMark', placeholder: 'Near by location' %>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputAddress" class="form-label">City</label>
+                    <%= ff.text_field :city, class: 'form-control', id: 'city' %>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputAddress" class="form-label">State</label>
+                    <%= ff.text_field :state, class: 'form-control', id: 'state' %>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputAddress" class="form-label">Zip</label>
+                    <%= ff.text_field :pincode, class: 'form-control', id: 'city' %>
+                  </div>
+                </fieldset>
+              </div>
+            <%end%>
+          </div>
+          <div class="form-group row text-center padding">
+            <div class="col ">
+              <%= form.submit "Place Shipment", class: "btn btn-primary btn-customized"%>
+            </div>
+          </div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  
+
+
+<style>
+  .form-1-box { padding-top: 30px; text-align: left; }
+ 
+.form-1-box legend {
+    font-size: inherit;
+    line-height: 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #555;
+}
+ 
+.form-1-box .form-check-label {
+    line-height: 1.5;
+    vertical-align: top;
+}
+ 
+.form-1-box input[type="text"],
+.form-1-box input[type="email"],
+.form-1-box input[type="password"] {
+    background: none;
+    border: 1px solid #ddd;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: #888;
+    box-shadow: none;
+}
+ 
+.form-1-box input[type="text"]:focus,
+.form-1-box input[type="email"]:focus,
+.form-1-box input[type="password"]:focus {
+    outline: 0;
+    background: none;
+    border: 1px solid #db5d50;
+    box-shadow: none;
+}
+ 
+.form-1-box input[type="text"]::-moz-placeholder,
+.form-1-box input[type="email"]::-moz-placeholder,
+.form-1-box input[type="password"]::-moz-placeholder {
+    color: #bbb;
+    font-style: italic;
+}
+ 
+.form-1-box input[type="text"]:-ms-input-placeholder,
+.form-1-box input[type="email"]:-ms-input-placeholder,
+.form-1-box input[type="password"]:-ms-input-placeholder {
+    color: #bbb;
+    font-style: italic;
+}
+ 
+.form-1-box input[type="text"]::-webkit-input-placeholder,
+.form-1-box input[type="email"]::-webkit-input-placeholder,
+.form-1-box input[type="password"]::-webkit-input-placeholder {
+    color: #bbb;
+    font-style: italic;
+}
+ 
+.form-1-box button.btn-customized {
+    margin-top: 1rem;
+    padding: .75rem 1.5rem;
+    background: #db5d50;
+    border: 0;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: #fff;
+    box-shadow: none;
+}
+ 
+.form-1-box button.btn-customized:hover, 
+.form-1-box button.btn-customized:active, 
+.form-1-box button.btn-customized:focus, 
+.form-1-box button.btn-customized:active:focus, 
+.form-1-box button.btn-customized.active:focus,
+.form-1-box button.btn.btn-primary:not(:disabled):not(.disabled):active,
+.form-1-box button.btn.btn-primary:not(:disabled):not(.disabled):active:focus {
+    outline: 0;
+    background: #ca594d;
+    border: 0;
+    color: #fff;
+    box-shadow: none;
+}
+</style>  

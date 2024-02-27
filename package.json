@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "5.15.1",
+    "stimulus": "^3.2.2"
+  }
+}
